@@ -1,7 +1,7 @@
 {
   "name": "git-commands",
   "version": "1.0.0",
-  "description": "Fuzzy search git commands with help",
+  "description": "Fuzzy search git commands with fzf",
   "main": "git-commands",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",

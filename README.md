@@ -59,7 +59,7 @@ See [Dotfiles](https://gitlab.com/hankchanocd/dotfiles) for my other works on `g
 
 See [git-overview](https://github.com/hankchanocd/git-overview) - A quick git repository insight at terminal.
 
-See [git-stack](https://github.com/hankchanocd/git-stack) - View differences between git branches with fzf.
+See [git-stack](https://github.com/hankchanocd/git-stack) - Compare against master branch with fzf.
 
 ## License
 

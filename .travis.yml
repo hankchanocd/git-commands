@@ -1,0 +1,11 @@
+sudo: false
+
+language: bash
+
+# Trigger Travis CI only when master branch is pushed, ignoring develop branch
+branches:
+  only:
+    - master
+
+script:
+    - bash -c 'echo 'complete''

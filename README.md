@@ -1,4 +1,4 @@
-# git-stack &nbsp;&nbsp; ![GitHub tag (latest SemVer)](https://img.shields.io/github/tag/hankchanocd/git-commands.svg) [![Build Status](https://travis-ci.org/hankchanocd/git-commands.svg?branch=master)](https://travis-ci.org/hankchanocd/git-commands) [![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/) [![Github issues](https://img.shields.io/github/issues/hankchanocd/git-commands.svg)](https://github.com/hankchanocd/git-commands/issues) [![CodeFactor](https://www.codefactor.io/repository/github/hankchanocd/git-commands/badge)](https://www.codefactor.io/repository/github/hankchanocd/git-commands)
+# git-commands &nbsp;&nbsp; ![GitHub tag (latest SemVer)](https://img.shields.io/github/tag/hankchanocd/git-commands.svg) [![Build Status](https://travis-ci.org/hankchanocd/git-commands.svg?branch=master)](https://travis-ci.org/hankchanocd/git-commands) [![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/) [![Github issues](https://img.shields.io/github/issues/hankchanocd/git-commands.svg)](https://github.com/hankchanocd/git-commands/issues) [![CodeFactor](https://www.codefactor.io/repository/github/hankchanocd/git-commands/badge)](https://www.codefactor.io/repository/github/hankchanocd/git-commands)
 
 > Fuzzy search git commands with fzf
 
@@ -12,13 +12,26 @@ Clone the repo, and run `npm run transfer` to transfer `./git-commands` to `~/bi
 
 If you have a more desired `PATH` for storing scripts, configure `./script/transfer.sh` directly or ignore the transfer instructions.
 
-## Before-Use
+## Requirements
 
 Make sure [`fzf`](https://github.com/junegunn/fzf) is installed globally. `git commands` won't work if `fzf` is not installed.
 
 ## Usage
 
-A simple one-liner.
+```
+git-commands [<options>]
+
+List all available git commands with help using fzf.
+Native git commands in white, custom git commands in blue.
+
+where:
+	-h  show this help text
+	-n  list only the native git commands
+	-c  list only the custom git commands
+	-a  list all commands, which is also default
+```
+
+A simple one-liner is all you need.
 
 ```bash
 $ git commands
@@ -28,6 +41,12 @@ Alias `git commands` to something shorter - `git cmd`, if typing `commands` anno
 
 ```bash
 $ git config --global alias.cmd 'commands'
+```
+
+Now, it's just as simple as
+
+```bash
+$ git cmd
 ```
 
 ## Changelog

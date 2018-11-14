@@ -1,0 +1,118 @@
+#!/usr/bin/env bash
+#!/usr/bin/env zsh
+#
+# Based on `git help -a` provided by `hub`, show all the available git commands, both native and custom.
+#
+# git help -a
+#     Ref: https://stackoverflow.com/questions/7866353/git-list-all-available-commands
+
+################ Preparation ################
+# The line that divides the whole text into two: regular and custom commands
+dividing_line_number=$(git help -a |
+	grep -n 'git commands available from elsewhere on your $PATH' |
+	sed 's/[^0-9]*//g')
+
+whole_line_number=$(git help -a | wc -l)
+
+############# Child Functions ###############
+function native_commands() {
+	git help -a |
+		head -n "$dividing_line_number" |
+		grep "^  [a-z]" |
+		tr ' ' '\n' |
+		grep -v "^$" |
+		while read line; do
+			echo -e "\e[00m$line\e[0m"
+		done
+}
+
+function custom_commands() {
+	git help -a |
+		tail -n $(($whole_line_number - $dividing_line_number)) |
+		grep "^  [a-z]" |
+		tr ' ' '\n' |
+		grep -v "^$" |
+		while read line; do
+			echo -e "\e[94m$line\e[0m"
+		done
+}
+
+function all_commands() {
+	native_commands && custom_commands
+}
+
+################ Main ################
+function main() {
+	list=$("$1" |
+		# -u: unique key to prevent duplicates
+		# -k: sort only after the specified character, after 6th character on 1st field
+		#     Ref: https://unix.stackexchange.com/questions/157923/sorting-strings-with-ansi-escape-codes
+		sort -u -k 1.6)
+
+	# If fzf exists
+	if type fzf >/dev/null 2>&1; then
+
+		_help_preview="man git-{} || {echo '\n*****************************' && git-{} -h}"
+		result=$(
+			echo -e "$list" |
+				fzf --ansi --reverse --height=90% --cycle \
+					--preview="$_help_preview" \
+					--preview-window=right:75%
+		)
+
+		# Execute a git command if a command selected
+		[[ -n "$result" ]] && git $result
+
+	else
+		echo -e '\e[94m`fzf` is not detected on $PATH, defaulting to `git help -a` \e[0m \n'
+		git help -a
+
+	fi
+}
+
+################ Help ################
+usage="usage: $(basename "$0") [<options>]
+
+List all available git commands with help using fzf.
+Native git commands in white, \e[94mcustom git commands in blue\e[0m.
+
+where:
+	-h  show this help text
+	-n  list only the native git commands
+	-c  list only the custom git commands
+	-a  list all commands, which is also default"
+
+############# Parse options ##############
+while getopts ':hnca:' option; do
+	case "$option" in
+	h)
+		echo -e "$usage"
+		exit
+		;;
+	n)
+		main native_commands
+		exit
+		;;
+	c)
+		main custom_commands
+		exit
+		;;
+	a)
+		main all_commands
+		exit
+		;;
+	:)
+		main all_commands
+		exit
+		;;
+	\?)
+		printf "illegal option: -%s\n" "$OPTARG" >&2
+		echo -e "$usage" >&2
+		exit 1
+		;;
+	esac
+done
+shift $((OPTIND - 1))
+
+# Default case when no option provided
+main all_commands

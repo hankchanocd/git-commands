@@ -1,0 +1,42 @@
+{
+  "name": "git-commands",
+  "version": "1.0.0",
+  "description": "Fuzzy search git commands with help",
+  "main": "git-commands",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "commit": "git-cz",
+    "transfer": "bash ./script/transfer.sh"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hankchanocd/git-commands.git"
+  },
+  "keywords": [
+    "git",
+    "commands",
+    "fuzzy",
+    "fzf",
+    "git-commands",
+    "git-cmd"
+  ],
+  "author": "Hank Chan <hankchanth@icloud.com> (https://github.com/hankchanocd)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/hankchanocd/git-commands/issues"
+  },
+  "homepage": "https://github.com/hankchanocd/git-commands#readme",
+  "devDependencies": {
+    "commitizen": "^3.0.4",
+    "cz-conventional-changelog": "^2.1.0",
+    "ghooks": "^2.0.4"
+  },
+  "config": {
+    "ghooks": {
+      "post-commit": "npm run transfer"
+    },
+    "commitizen": {
+      "path": "node_modules/cz-conventional-changelog"
+    }
+  }
+}

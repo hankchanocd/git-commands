@@ -2,6 +2,12 @@
 
 > Fuzzy search git commands with fzf
 
+## Update (2020-Mar-1)
+
+**Warning:** This repository has been archived.
+
+Since `git` version 1.20.0, the `git help` command has undergone a consistent change, that makes rewriting this repository almost an impossible task. The good news, however, is that `git help -a` is now much more informative, including all git commands and aliases, along with their description.
+
 <p align="center">
 <img alt="demo" width="850" src="https://github.com/hankchanocd/git-commands/blob/master/images/demo.png" />
 </p>
@@ -52,6 +58,8 @@ $ git cmd
 ## Changelog
 
 **2018-Nov-13:** `v1` published. Automate commit and file transfer process with [`commitizen`](http://commitizen.github.io/cz-cli/) and [`ghooks`](https://github.com/ghooks-org/ghooks).
+
+**2020-Mar-1:** Archived.
 
 ## Others
 
